@@ -1,0 +1,306 @@
+<?xml  version='1.0' encoding='windows-1252' ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="org.FreeTAKServer" targetNamespace="org.FreeTAKServer" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<xs:element name="COT" type="COT"/>
+	<xs:complexType name="COT">
+		<xs:sequence>
+			<xs:element name="Event" type="Event" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Event">
+		<xs:annotation>
+			<xs:documentation>represents a TAK event: this class is instantiated with a standard set of values.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="how" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>Gives a hint about how the coordinates were generated</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="m_detail" minOccurs="1" maxOccurs="1" type=""/>
+			<xs:element name="m_point" minOccurs="1" maxOccurs="1" type=""/>
+			<xs:element name="stale" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>ending time when an event should no longer be considered valid</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Start" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>starting time when an event  should be considered valid</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="time" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>time stamp: when the event was generated</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation> &lt;font color="#008000"&gt;# Hierarchically organized hint about event type (defaultis is 'a-f-G-I' for infrastructure)&lt;/font&gt;</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="uid" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>Globally unique name for this information on this event.</xs:documentation>
+					<xs:documentation>can have additional information attached.</xs:documentation>
+					<xs:documentation> e.g. -ping means that this request is a ping</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="version" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>Schema version of this event instance (e.g. 2.0)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="detail" minOccurs="1" maxOccurs="1" type="detail"/>
+			<xs:element name="point" minOccurs="1" maxOccurs="1" type="point"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Marti">
+		<xs:sequence>
+			<xs:element name="dest" minOccurs="0" maxOccurs="1" type="dest"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Precisionlocation">
+		<xs:annotation>
+			<xs:documentation>some type of location?</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="altsrc" minOccurs="1" maxOccurs="1" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>TDB can be DTED0 or ???</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="geopointsrc" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="__chat">
+		<xs:sequence>
+			<xs:element name="chatroom" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>TBD: the callsign of the receiver?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="groupOwner" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>TBD,</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="id" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>TBD: the unique ID of the sender?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="parent" minOccurs="1" maxOccurs="1" type=""/>
+			<xs:element name="senderCallsign" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>the call sign of the sender</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="chatgrp" minOccurs="0" maxOccurs="1" type="chatgrp"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="__serverdestination">
+		<xs:sequence>
+			<xs:element name="destinations" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>string composed by IP:port: protocol:machineID. e.g. 192.168.0.103:4242:tcp:ANDROID-R52JB0CDC4E</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="_medevac_ ">
+		<xs:annotation>
+			<xs:documentation>the medevac class is used to describe a case of someone in need to be evacuated</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="casevac" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="equipment_none" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="freq" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="hlz_marking" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="litter" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="medline_remarks" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="Priority" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="routine" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="Security" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="terrain_none" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="Title" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="urgent" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="zone_prot_selection" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="chatgrp">
+		<xs:sequence>
+			<xs:element name="id" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>third ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="uid0" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>the machine ID of the sender</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="uid1" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>another ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="color">
+		<xs:sequence>
+			<xs:element name="argb" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="contact">
+		<xs:sequence>
+			<xs:element name="callsign" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="endpoint" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="iconsetpath" minOccurs="1" maxOccurs="1" type=""/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dest">
+		<xs:sequence>
+			<xs:element name="callsign" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="detail">
+		<xs:annotation>
+			<xs:documentation>An optional element used to hold CoT sub-schema. empty element</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="m_color" minOccurs="1" maxOccurs="1" type=""/>
+			<xs:element name="m_contact" minOccurs="1" maxOccurs="1" type=""/>
+			<xs:element name="m_link" minOccurs="1" maxOccurs="1" type=""/>
+			<xs:element name="m_remarks" minOccurs="1" maxOccurs="1" type=""/>
+			<xs:element name="m_status" minOccurs="1" maxOccurs="1" type=""/>
+			<xs:element name="m_takv" minOccurs="1" maxOccurs="1" type=""/>
+			<xs:element name="m_track" minOccurs="1" maxOccurs="1" type=""/>
+			<xs:element name="m_usericon" minOccurs="1" maxOccurs="1" type=""/>
+			<xs:element name="__chat" minOccurs="0" maxOccurs="1" type="__chat"/>
+			<xs:element name="__serverdestination" minOccurs="0" maxOccurs="1" type="__serverdestination"/>
+			<xs:element name="_medevac_ " type="_medevac_ "/>
+			<xs:element name="color" minOccurs="0" maxOccurs="1" type="color"/>
+			<xs:element name="contact" type="contact"/>
+			<xs:element name="emergency" type="emergency"/>
+			<xs:element name="Event" minOccurs="1" maxOccurs="1" type="Event"/>
+			<xs:element name="link" minOccurs="0" maxOccurs="1" type="link"/>
+			<xs:element name="Marti" minOccurs="0" maxOccurs="1" type="Marti"/>
+			<xs:element name="Precisionlocation" type="Precisionlocation"/>
+			<xs:element name="remarks" type="remarks"/>
+			<xs:element name="status" minOccurs="0" maxOccurs="1" type="status"/>
+			<xs:element name="takv" type="takv"/>
+			<xs:element name="track" type="track"/>
+			<xs:element name="usericon" type="usericon"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="emergency">
+		<xs:annotation>
+			<xs:documentation>An emergency beacon the is continually send to all the connected clients until deactivated from the original creator</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Alert" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="cancel" minOccurs="1" maxOccurs="1" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>if true the emergency beacon is canceled</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="link">
+		<xs:sequence>
+			<xs:element name="parent_callsign" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="production_time" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="relation" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="type" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+			<xs:element name="uid" minOccurs="1" maxOccurs="1" type="xs:integer"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="point">
+		<xs:annotation>
+			<xs:documentation>class COTPOINT</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ce" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>Circular 1-sigma or decimal a circular area about the point in meters</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lat" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>Latitude referred to the WGS 84 ellipsoid in degrees</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="le" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>Linear 1-sigma error or an altitude range about the point in meters</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lon" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>Longitude referred to the WGS 84 in degrees</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="remarks">
+		<xs:annotation>
+			<xs:documentation>Provides a place to annotate CoT with free text information.  e.g. comments from other users about the current COT. Used also fro the geoChat.</xs:documentation>
+			<xs:documentation>the xml body of this class is used to transport the chat message</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="source" minOccurs="1" maxOccurs="1" type=""/>
+			<xs:element name="time" minOccurs="1" maxOccurs="1" type=""/>
+			<xs:element name="to" minOccurs="1" maxOccurs="1" type=""/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="status">
+		<xs:sequence>
+			<xs:element name="battery" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>% of the battery on the phone</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="readiness" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>probably boolean to determine if ready or not</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="takv">
+		<xs:sequence>
+			<xs:element name="device" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>type of physical device</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="os" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>the operating system running TAK</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="platform" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>the variant of TAK</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="version" minOccurs="1" maxOccurs="1" type="">
+				<xs:annotation>
+					<xs:documentation>the version of TAK running on the device</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="track">
+		<xs:sequence>
+			<xs:element name="course" minOccurs="1" maxOccurs="1" type=""/>
+			<xs:element name="speed" minOccurs="1" maxOccurs="1" type=""/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="usericon">
+		<xs:sequence>
+			<xs:element name="iconsetpath" minOccurs="1" maxOccurs="1" type=""/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

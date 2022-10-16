@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\WOT.TAK.Client",
+    "\\src\\WOT.TAK.Connection",
+    "\\src\\WOT.TAK.SecureSymbolsTranslator"
+  ],
+  "SelectedNode": "\\src\\WOT.TAK.Client\\Program.cs",
+  "PreviewInSolutionExplorer": false
+}

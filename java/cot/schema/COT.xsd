@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="event">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="point">
+					<xs:complexType>
+						<xs:attribute name="lat" type="xs:decimal" use="required" />
+						<xs:attribute name="lon" type="xs:decimal" use="required" />
+						<xs:attribute name="hae" type="xs:decimal" use="required" />
+						<xs:attribute name="ce" type="xs:decimal" use="required" />
+						<xs:attribute name="le" type="xs:decimal" use="required" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="detail">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:choice maxOccurs="unbounded">
+								<xs:element name="status">
+									<xs:complexType>
+										<xs:attribute name="readiness" type="xs:boolean" use="required" />
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="archive" />
+								<xs:element name="precisionlocation">
+									<xs:complexType>
+										<xs:attribute name="altsrc" type="xs:string" use="required" />
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="usericon">
+									<xs:complexType>
+										<xs:attribute name="iconsetpath" type="xs:string" use="required" />
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="link">
+									<xs:complexType>
+										<xs:attribute name="uid" type="xs:string" use="required" />
+										<xs:attribute name="production_time" type="xs:dateTime" use="required" />
+										<xs:attribute name="type" type="xs:string" use="required" />
+										<xs:attribute name="parent_callsign" type="xs:string" use="required" />
+										<xs:attribute name="relation" type="xs:string" use="required" />
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="contact">
+									<xs:complexType>
+										<xs:attribute name="callsign" type="xs:string" use="required" />
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="color">
+									<xs:complexType>
+										<xs:attribute name="argb" type="xs:byte" use="required" />
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="remarks" />
+							</xs:choice>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="version" type="xs:decimal" use="required" />
+			<xs:attribute name="uid" type="xs:string" use="required" />
+			<xs:attribute name="type" type="xs:string" use="required" />
+			<xs:attribute name="time" type="xs:dateTime" use="required" />
+			<xs:attribute name="start" type="xs:dateTime" use="required" />
+			<xs:attribute name="stale" type="xs:dateTime" use="required" />
+			<xs:attribute name="how" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

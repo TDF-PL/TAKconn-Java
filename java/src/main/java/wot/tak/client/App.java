@@ -11,7 +11,7 @@ import java.util.Properties;
 
 public class App {
 
-    private static final String propertiesPath = "java/src/wot/resources/config.properties";
+    private static final String propertiesPath = "src/main/resources/config.properties";
 
     private static ConnectorFactory cFactory;
     private static MessageValidator messageValidator;

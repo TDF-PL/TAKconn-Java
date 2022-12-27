@@ -49,14 +49,20 @@ public class App {
     }
 
     private static TAKServerConnector createConnector(String connectionMode) throws Exception {
-        return switch (connectionMode) {
-            case "tls" -> cFactory.getSSLConnector();
-            case "tlsCred" -> cFactory.getSSLCredConnector();
-            case "credentials" -> cFactory.getCredentialsConnector();
-            case "udp" -> cFactory.getUDPConnector();
-            case "plain" -> cFactory.getPlainConnector();
-            default -> throw new Exception("Unknown main.java.connection mode provided in configuration file");
-        };
+        switch (connectionMode) {
+            case "tls":
+                return cFactory.getSSLConnector();
+            case "tlsCred":
+                return cFactory.getSSLCredConnector();
+            case "credentials":
+                return cFactory.getCredentialsConnector();
+            case "udp":
+                return cFactory.getUDPConnector();
+            case "plain":
+                return cFactory.getPlainConnector();
+            default:
+                throw new Exception("Unknown main.java.connection mode provided in configuration file");
+        }
     }
 
     private static void validateCOTMessages(String cotDirectoryPath) throws Exception {

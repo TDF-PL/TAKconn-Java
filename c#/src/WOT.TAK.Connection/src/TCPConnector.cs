@@ -52,7 +52,8 @@ namespace WOT.TAK.Connection
         {
             try
             {
-                _socket.Connect(_url, _port);
+                if(!_socket.Connected)
+                    _socket.Connect(_url, _port);
             }
             catch (Exception e)
             {

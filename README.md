@@ -17,9 +17,12 @@ Lista funkcjonalności w trakcie implementacji:
 
 Kod w języku C# jest w trakcie tworzenia.
 
+## Certifikaty
+Potrzebne są pliki truststore.p12 i user.p12 w katalogach java/src/main/resources/cot/cert i c#/src/WOT.TAK.Client/cot/cert
+
 ## Plik konfiguracyjny (Java)
 
-Plik konfiguracyjny się w katalogu java/src/resources/. Jego struktura wygląda następująco:
+Plik konfiguracyjny się w katalogu java/src/main/resources/. Jego struktura wygląda następująco:
 
     tak.server.url=<Tutaj należy podać url serwera TAK>
     tak.server.port=<Tutaj należy podać port serwera TAK>

@@ -1,4 +1,4 @@
-package main.java.connection;
+package wot.tak.connection;
 
 import java.util.Properties;
 

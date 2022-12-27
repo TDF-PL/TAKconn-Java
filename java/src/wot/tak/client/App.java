@@ -1,8 +1,8 @@
-package main.java.client;
+package wot.tak.client;
 
-import main.java.connection.TAKServerConnector;
-import main.java.connection.ConnectorFactory;
-import main.java.connection.MessageValidator;
+import wot.tak.connection.TAKServerConnector;
+import wot.tak.connection.ConnectorFactory;
+import wot.tak.connection.MessageValidator;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,7 +11,7 @@ import java.util.Properties;
 
 public class App {
 
-    private static final String propertiesPath = "java/src/main/resources/config.properties";
+    private static final String propertiesPath = "java/src/wot/resources/config.properties";
 
     private static ConnectorFactory cFactory;
     private static MessageValidator messageValidator;

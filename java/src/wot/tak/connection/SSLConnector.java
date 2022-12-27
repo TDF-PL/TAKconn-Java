@@ -1,4 +1,4 @@
-package main.java.connection;
+package wot.tak.connection;
 
 import javax.net.ssl.SSLSocket;
 import java.io.IOException;

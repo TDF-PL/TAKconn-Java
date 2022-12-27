@@ -82,6 +82,7 @@ public class App {
                 connector.sendFile(file);
             }
         }
+        Thread.sleep(2000);
         connector.close();
     }
 

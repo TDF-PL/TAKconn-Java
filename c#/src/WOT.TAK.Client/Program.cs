@@ -55,6 +55,7 @@ internal class Client
         connector.SendFile("cot/messages/msg1.cot");
         connector.SendFile("cot/messages/msg2.cot");
         connector.SendFile("cot/messages/msg3.cot");
+        Thread.Sleep(2000);
         connector.Close();
         Console.WriteLine("Sent");
     }

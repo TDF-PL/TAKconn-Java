@@ -98,8 +98,8 @@ namespace WOT.TAK.Connection
             X509Certificate2Collection certificateCollection = new X509Certificate2Collection(clientCertificate);
             try
             {
-                byte[] clientCertBytes = certificate.GetRawCertData();
-                byte[] serverCertBytes = clientCertificate.GetRawCertData();
+                string clientCertBytes = certificate.Issuer;
+                string serverCertBytes = clientCertificate.Issuer;
                 if (clientCertBytes.Length != serverCertBytes.Length)
                 {
                     throw new Exception("Client/server certificates do not match.");

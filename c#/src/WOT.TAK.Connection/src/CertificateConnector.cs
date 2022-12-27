@@ -50,6 +50,8 @@ namespace WOT.TAK.Connection
 
             // Funkcja powodująca problemy
             _authConnection.AuthenticateAsClient(_serverUrl, certificateCollection, SslProtocols.Tls13, false);
+            connector.SetStream(_authConnection);
+            connector.Connect();
         }
         public void SendFile(string path)
         {

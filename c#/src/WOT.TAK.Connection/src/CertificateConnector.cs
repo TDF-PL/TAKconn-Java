@@ -33,7 +33,7 @@ namespace WOT.TAK.Connection
         public void Connect()
         {
             TCPConnector connector = new TCPConnector(_serverUrl, _serverPort, _cotResponsesDirPath);
-            connector.Connect();
+            connector.GetSocket().Connect(_serverUrl, Int32.Parse(_serverPort));
 
             FileStream fileStream = File.OpenRead(_certPath);
             byte[] buffer = new byte[fileStream.Length];

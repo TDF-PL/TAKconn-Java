@@ -87,6 +87,10 @@ namespace WOT.TAK.Connection
                 {
                     continue;
                 }
+                catch (ObjectDisposedException e)
+                {
+                    Close();
+                }
                 catch (Exception ex)
                 {
                     Console.Error.WriteLine(ex.Message);

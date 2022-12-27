@@ -67,6 +67,7 @@ namespace WOT.TAK.Connection
             _input = new StreamReader(_stream);
             _socket.ReceiveTimeout = 1000;
             _listener = new Thread(new ThreadStart(ResponseListener));
+            _listener.IsBackground = true;
             _listener.Start();
         }
         private void ResponseListener()

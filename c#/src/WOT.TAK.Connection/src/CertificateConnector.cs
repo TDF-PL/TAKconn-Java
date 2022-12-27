@@ -32,7 +32,7 @@ namespace WOT.TAK.Connection
         }
         public void Connect()
         {
-            TCPConnector connector = new TCPConnector(_serverUrl, _serverPort, null);
+            TCPConnector connector = new TCPConnector(_serverUrl, _serverPort, _cotResponsesDirPath);
             connector.Connect();
 
             FileStream fileStream = File.OpenRead(_certPath);

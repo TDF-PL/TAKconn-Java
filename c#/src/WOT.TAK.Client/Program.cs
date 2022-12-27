@@ -50,7 +50,7 @@ internal class Client
 
     public void DoWork()
     {
-        var connector = new CertificateConnector("212.160.99.185", "8089", null, @"~\mwolski1.p12", @"ZawszeBlisko2021");
+        var connector = new CertificateConnector("212.160.99.185", "8089", @"cot\responses", @"cot\cert\user.p12", @"atakatak");
         connector.Connect();
         connector.SendFile("cot/messages/msg1.cot");
         connector.SendFile("cot/messages/msg2.cot");

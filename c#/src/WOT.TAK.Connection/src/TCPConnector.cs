@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using System.Net.Sockets;
 
 namespace WOT.TAK.Connection
@@ -10,6 +12,7 @@ namespace WOT.TAK.Connection
         private TcpClient _socket;
         protected StreamReader _input;
         protected StreamWriter _output;
+        private Stream _stream;
         private Thread _listener;
         private bool _run;
         public TCPConnector(String url, String port, String responseStoragePath)
@@ -40,6 +43,11 @@ namespace WOT.TAK.Connection
             }
         }
 
+        public void SetStream(Stream stream)
+        {
+            _stream = stream;
+        }
+
         public void Connect()
         {
             try
@@ -50,8 +58,12 @@ namespace WOT.TAK.Connection
             {
                 Console.WriteLine(e.Message);
             }
-            _output = new StreamWriter(_socket.GetStream());
-            _input = new StreamReader(_socket.GetStream());
+            if (_stream == null)
+            {
+                _stream = _socket.GetStream();
+            }
+            _output = new StreamWriter(_stream);
+            _input = new StreamReader(_stream);
             _socket.ReceiveTimeout = 1000;
             _listener = new Thread(new ThreadStart(ResponseListener));
             _listener.Start();

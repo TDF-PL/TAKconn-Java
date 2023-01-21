@@ -1,4 +1,4 @@
-package wot.tak.connection;
+package wot.tak.validator;
 
 import java.io.File;
 import java.io.IOException;

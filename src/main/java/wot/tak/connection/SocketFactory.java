@@ -17,18 +17,12 @@ import java.util.List;
 import java.util.Properties;
 
 public class SocketFactory {
-    private final String keyStoreFilepath;
-    private final String keyStorePassword;
-    private final String trustStoreFilepath;
-    private final String trustStorePassword;
+    private final SocketFactoryConfig cfg;
     private SSLSocketFactory sslFactory;
 
-    protected SocketFactory(Properties prop) throws Exception{
-        keyStoreFilepath = prop.getProperty("key.store.path");
-        keyStorePassword = prop.getProperty("key.store.password");
-        trustStoreFilepath = prop.getProperty("trust.store.path");
-        trustStorePassword = prop.getProperty("trust.store.password");
-        if (Boolean.parseBoolean(prop.getProperty("server.certificate.verification"))) {
+    protected SocketFactory(SocketFactoryConfig cfg) throws Exception{
+        this.cfg = cfg;
+        if (cfg.getServerCertVerification()) {
             initializeSocketFactory();
         } else {
             initializeTestSocketFactory();
@@ -61,11 +55,11 @@ public class SocketFactory {
 
         KeyManagerFactory kmf;
         KeyStore ks;
-        char[] storepass = keyStorePassword.toCharArray();
-        char[] keypass = keyStorePassword.toCharArray();
+        char[] storepass = cfg.getKeyStorePassword().toCharArray();
+        char[] keypass = cfg.getKeyStorePassword().toCharArray();
 
         kmf = KeyManagerFactory.getInstance("SunX509");
-        FileInputStream fin = new FileInputStream(keyStoreFilepath);
+        FileInputStream fin = new FileInputStream(cfg.getKeyStorePath());
         ks = KeyStore.getInstance("PKCS12");
         ks.load(fin, storepass);
 
@@ -79,11 +73,11 @@ public class SocketFactory {
     }
 
     private void initializeSocketFactory() throws Exception{
-        System.setProperty("javax.net.ssl.keyStore", keyStoreFilepath);
-        System.setProperty("javax.net.ssl.keyStorePassword", keyStorePassword);
+        System.setProperty("javax.net.ssl.keyStore", cfg.getKeyStorePath());
+        System.setProperty("javax.net.ssl.keyStorePassword", cfg.getKeyStorePassword());
         System.setProperty("javax.net.ssl.keyStoreType", "pkcs12");
-        System.setProperty("javax.net.ssl.trustStore", trustStoreFilepath);
-        System.setProperty("javax.net.ssl.trustStorePassword", trustStorePassword);
+        System.setProperty("javax.net.ssl.trustStore", cfg.getTrustStorePath());
+        System.setProperty("javax.net.ssl.trustStorePassword", cfg.getTrustStorePassword());
         sslFactory = (SSLSocketFactory)SSLSocketFactory.getDefault();
     }
 }

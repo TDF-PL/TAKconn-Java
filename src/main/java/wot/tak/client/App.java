@@ -1,8 +1,9 @@
 package wot.tak.client;
 
+import wot.tak.connection.ConnectorFactoryConfig;
 import wot.tak.connection.TAKServerConnector;
 import wot.tak.connection.ConnectorFactory;
-import wot.tak.connection.MessageValidator;
+import wot.tak.validator.MessageValidator;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,7 +25,19 @@ public class App {
             System.err.println(ex.getMessage());
             return;
         }
-        cFactory = new ConnectorFactory(prop);
+        ConnectorFactoryConfig cFactoryConfig = new ConnectorFactoryConfig(
+                prop.getProperty("cot.responses"),
+                prop.getProperty("tak.server.url"),
+                prop.getProperty("tak.server.port"),
+                prop.getProperty("user.name"),
+                prop.getProperty("user.password"),
+                prop.getProperty("trust.store.path"),
+                prop.getProperty("trust.store.password"),
+                prop.getProperty("key.store.path"),
+                prop.getProperty("key.store.password"),
+                Boolean.parseBoolean(prop.getProperty("server.certificate.verification"))
+        );
+        cFactory = new ConnectorFactory(cFactoryConfig);
         try {
             messageValidator = new MessageValidator(prop.getProperty("cot.schema")  + "/COT.xsd");
             validateCOTMessages(prop.getProperty("cot.path"));

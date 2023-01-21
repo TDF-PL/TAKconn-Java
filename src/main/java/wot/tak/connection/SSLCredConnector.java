@@ -19,7 +19,6 @@ public class SSLCredConnector extends SSLConnector {
     }
 
     private void authenticate(String userName, String password){
-        out.println(userName);
-        out.println(password);
+        // TODO Implement sending cot with credentials
     }
 }

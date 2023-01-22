@@ -31,11 +31,15 @@ public abstract class TCPConnector implements TAKServerConnector {
     }
 
     public void connect() throws IOException {
-        out = new PrintWriter(s.getOutputStream(), true);
-        in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+        this.initializeInOut();
         s.setSoTimeout(100);
         listener = new ResponseListener();
         listener.start();
+    }
+
+    private void initializeInOut() throws IOException {
+        out = new PrintWriter(s.getOutputStream(), true);
+        in = new BufferedReader(new InputStreamReader(s.getInputStream()));
     }
 
     private class ResponseListener extends Thread {

@@ -1,4 +1,4 @@
-package wot.tak.connection;
+package org.wot.tak.connection;
 
 import java.io.File;
 import java.io.IOException;

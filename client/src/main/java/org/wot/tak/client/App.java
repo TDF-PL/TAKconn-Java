@@ -1,8 +1,8 @@
-package wot.tak.client;
+package org.wot.tak.client;
 
-import wot.tak.connection.TAKServerConnector;
-import wot.tak.connection.ConnectorFactory;
-import wot.tak.connection.MessageValidator;
+import org.wot.tak.connection.TAKServerConnector;
+import org.wot.tak.connection.ConnectorFactory;
+import org.wot.tak.connection.MessageValidator;
 
 import java.io.File;
 import java.io.FileInputStream;

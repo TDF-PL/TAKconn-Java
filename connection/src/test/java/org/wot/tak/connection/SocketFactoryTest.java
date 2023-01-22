@@ -22,7 +22,7 @@ public class SocketFactoryTest {
         // given
         SocketFactory factory = createFactory();
         // when
-        Socket socket = factory.createSSLSocket("example.com", 443);\
+        Socket socket = factory.createSSLSocket("example.com", 443);
         // then
         assertNotNull(socket);
         assertTrue(socket instanceof SSLSocket);

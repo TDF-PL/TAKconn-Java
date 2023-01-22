@@ -1,59 +1,57 @@
 package org.wot.tak.connection;
 
-import java.util.Properties;
-
 public class ConnectorFactory {
 
-    Properties prop;
+    ConnectorFactoryConfig cfg;
 
-    public ConnectorFactory(Properties prop) {
-        this.prop = prop;
+    public ConnectorFactory(ConnectorFactoryConfig cfg) {
+        this.cfg = cfg;
     }
 
     public TAKServerConnector getSSLConnector() throws Exception{
         return new SSLConnector(
-                prop.getProperty("tak.server.url"),
-                prop.getProperty("tak.server.port"),
-                prop.getProperty("cot.responses"),
-                new SocketFactory(prop)
+                cfg.getTakServerUrl(),
+                cfg.getTakServerPort(),
+                cfg.getCotResponsesPath(),
+                new SocketFactory(cfg.getSocketFactoryConfig())
         );
     }
 
     public TAKServerConnector getSSLCredConnector() throws Exception{
         return new SSLCredConnector(
-                prop.getProperty("tak.server.url"),
-                prop.getProperty("tak.server.port"),
-                prop.getProperty("cot.responses"),
-                new SocketFactory(prop),
-                prop.getProperty("user.name"),
-                prop.getProperty("user.password")
+                cfg.getTakServerUrl(),
+                cfg.getTakServerPort(),
+                cfg.getCotResponsesPath(),
+                new SocketFactory(cfg.getSocketFactoryConfig()),
+                cfg.getUserName(),
+                cfg.getUserPassword()
         );
     }
 
     public TAKServerConnector getCredentialsConnector() throws Exception{
         return new CredentialsConnector(
-                prop.getProperty("tak.server.url"),
-                prop.getProperty("tak.server.port"),
-                prop.getProperty("cot.responses"),
-                new SocketFactory(prop),
-                prop.getProperty("user.name"),
-                prop.getProperty("user.password")
+                cfg.getTakServerUrl(),
+                cfg.getTakServerPort(),
+                cfg.getCotResponsesPath(),
+                new SocketFactory(cfg.getSocketFactoryConfig()),
+                cfg.getUserName(),
+                cfg.getUserPassword()
         );
     }
 
     public TAKServerConnector getPlainConnector() throws Exception{
         return new PlainConnector(
-                prop.getProperty("tak.server.url"),
-                prop.getProperty("tak.server.port"),
-                prop.getProperty("cot.responses"),
-                new SocketFactory(prop)
+                cfg.getTakServerUrl(),
+                cfg.getTakServerPort(),
+                cfg.getCotResponsesPath(),
+                new SocketFactory(cfg.getSocketFactoryConfig())
         );
     }
 
     public TAKServerConnector getUDPConnector() throws Exception{
         return new UDPConnector(
-                prop.getProperty("tak.server.url"),
-                prop.getProperty("tak.server.port")
+                cfg.getUserName(),
+                cfg.getUserPassword()
         );
     }
 }

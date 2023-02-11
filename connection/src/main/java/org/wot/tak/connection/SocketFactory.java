@@ -1,5 +1,7 @@
 package org.wot.tak.connection;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
 import javax.net.ssl.*;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,6 +13,7 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.security.Security;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -53,31 +56,43 @@ public class SocketFactory {
                 }
         };
 
+        initializeSocketFactory(trustAllCerts);
+    }
+
+    private void initializeSocketFactory(TrustManager[] tm) throws Exception {
         KeyManagerFactory kmf;
         KeyStore ks;
         char[] storepass = cfg.getKeyStorePassword().toCharArray();
-        char[] keypass = cfg.getKeyStorePassword().toCharArray();
+        TrustManagerFactory tmf;
+        KeyStore ts;
+        char[] trustpass = cfg.getTrustStorePassword().toCharArray();
 
         kmf = KeyManagerFactory.getInstance("SunX509");
         FileInputStream fin = new FileInputStream(cfg.getKeyStorePath());
         ks = KeyStore.getInstance("PKCS12");
         ks.load(fin, storepass);
+        kmf.init(ks, storepass);
 
-        kmf.init(ks, keypass);
+        if (tm == null) {
+            tmf = TrustManagerFactory.getInstance("SunX509");
+            fin = new FileInputStream(cfg.getTrustStorePath());
+            if (Security.getProvider("BC") == null) {
+                Security.addProvider(new BouncyCastleProvider());
+            }
+            ts = KeyStore.getInstance("PKCS12", "BC");
+            ts.load(fin, trustpass);
+            tmf.init(ts);
+            tm = tmf.getTrustManagers();
+        }
 
-        SSLContext sc = SSLContext.getInstance("TLS");
-        sc.init(kmf.getKeyManagers(), trustAllCerts, new java.security.SecureRandom());
+        SSLContext sc = SSLContext.getInstance("TLSv1.2");
+        sc.init(kmf.getKeyManagers(), tm, new java.security.SecureRandom());
         sslFactory = sc.getSocketFactory();
 
 
     }
 
-    private void initializeSocketFactory() throws Exception{
-        System.setProperty("javax.net.ssl.keyStore", cfg.getKeyStorePath());
-        System.setProperty("javax.net.ssl.keyStorePassword", cfg.getKeyStorePassword());
-        System.setProperty("javax.net.ssl.keyStoreType", "pkcs12");
-        System.setProperty("javax.net.ssl.trustStore", cfg.getTrustStorePath());
-        System.setProperty("javax.net.ssl.trustStorePassword", cfg.getTrustStorePassword());
-        sslFactory = (SSLSocketFactory)SSLSocketFactory.getDefault();
+    private void initializeSocketFactory() throws Exception {
+        initializeSocketFactory(null);
     }
 }

@@ -1,0 +1,13 @@
+stages:
+  - build
+  - test
+
+build-code-job:
+  stage: build
+  script:
+    - mvn package
+
+test-code-job:
+  stage: test
+  script:
+    - mvn test

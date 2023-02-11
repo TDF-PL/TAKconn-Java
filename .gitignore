@@ -1,4 +1,3 @@
 .idea/
-client/src/main/resources/cot/cert/*.p12
 target/
 tak.iml

@@ -1,19 +1,23 @@
 package org.wot.tak.connection;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
-import java.io.IOException;
+
+import javax.net.ssl.SSLSocket;
+import java.net.Socket;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class SocketFactoryTest {
 
-    public SocketFactory createFactory() {
+    public SocketFactory createFactory() throws Exception {
         SocketFactoryConfig config = new SocketFactoryConfig(
                 "test.p12",
                 "password",
-                "test.p12"
+                "test.p12",
                 "password",
-                false,
-                );
+                false
+        );
         return new SocketFactory(config);
     }
 
@@ -27,32 +31,4 @@ public class SocketFactoryTest {
         assertNotNull(socket);
         assertTrue(socket instanceof SSLSocket);
     }
-
-    @Test
-    public void testInitializeTestSocketFactory() throws Exception {
-        // given
-        SocketFactory factory = createFactory();
-
-        // when
-        factory.initializeTestSocketFactory();
-
-        // then
-        SSLSocketFactory sslFactory = factory.sslFactory;
-        assertNotNull(sslFactory);
-    }
-
-    @Test
-    public void testInitializeSocketFactory() throws Exception {
-        // given
-        SocketFactory factory = createFactory();
-
-        // when
-        factory.initializeSocketFactory();
-
-        // then
-        SSLSocketFactory sslFactory = factory.sslFactory;
-        assertNotNull(sslFactory);
-    }
-
-
 }

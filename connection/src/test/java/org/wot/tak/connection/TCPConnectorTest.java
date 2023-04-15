@@ -1,5 +1,7 @@
 package org.wot.tak.connection;
 
+import org.junit.Test;
+
 public class TCPConnectorTest {
 
     @Test

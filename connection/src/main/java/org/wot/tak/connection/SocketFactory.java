@@ -14,10 +14,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.security.Security;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 public class SocketFactory {
     private final SocketFactoryConfig cfg;
@@ -63,19 +60,21 @@ public class SocketFactory {
         KeyManagerFactory kmf;
         KeyStore ks;
         char[] storepass = cfg.getKeyStorePassword().toCharArray();
-        TrustManagerFactory tmf;
-        KeyStore ts;
-        char[] trustpass = cfg.getTrustStorePassword().toCharArray();
 
         kmf = KeyManagerFactory.getInstance("SunX509");
-        FileInputStream fin = new FileInputStream(cfg.getKeyStorePath());
+        InputStream fin = this.getClass().getClassLoader().getResourceAsStream(cfg.getKeyStorePath());
+        Objects.requireNonNull(fin);
         ks = KeyStore.getInstance("PKCS12");
         ks.load(fin, storepass);
         kmf.init(ks, storepass);
 
         if (tm == null) {
+            TrustManagerFactory tmf;
+            KeyStore ts;
+            char[] trustpass = cfg.getTrustStorePassword().toCharArray();
             tmf = TrustManagerFactory.getInstance("SunX509");
-            fin = new FileInputStream(cfg.getTrustStorePath());
+            fin = this.getClass().getClassLoader().getResourceAsStream(cfg.getTrustStorePath());
+            Objects.requireNonNull(fin);
             if (Security.getProvider("BC") == null) {
                 Security.addProvider(new BouncyCastleProvider());
             }

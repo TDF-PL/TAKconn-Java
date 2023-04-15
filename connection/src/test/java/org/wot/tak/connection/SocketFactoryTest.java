@@ -12,11 +12,11 @@ public class SocketFactoryTest {
 
     public SocketFactory createFactory() throws Exception {
         SocketFactoryConfig config = new SocketFactoryConfig(
-                "test.p12",
-                "password",
-                "test.p12",
-                "password",
-                false
+                "cert-test/truststore-int-ca.p12",
+                "atakatak",
+                "cert-test/charlie.p12",
+                "atakatak",
+                true
         );
         return new SocketFactory(config);
     }
@@ -26,9 +26,12 @@ public class SocketFactoryTest {
         // given
         SocketFactory factory = createFactory();
         // when
-        Socket socket = factory.createSSLSocket("example.com", 443);
+        Socket socket = factory.createSSLSocket("tak-dev.1gs20.net", 8443);
         // then
         assertNotNull(socket);
         assertTrue(socket instanceof SSLSocket);
+
+        SSLSocket sslSocket = (SSLSocket)socket;
+        ((SSLSocket) socket).startHandshake();
     }
 }

@@ -8,11 +8,12 @@ import org.wot.tak.validator.MessageValidator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class App {
 
-    private static final String propertiesPath = "src/main/resources/config-dev.properties";
+    private static final String propertiesPath = "config-dev.properties";
 
     private static ConnectorFactory cFactory;
     private static MessageValidator messageValidator;
@@ -51,7 +52,7 @@ public class App {
 
     private static Properties initializeProperties() throws IOException {
         Properties prop = new Properties();
-        FileInputStream fis = new FileInputStream(propertiesPath);
+        InputStream fis = App.class.getClassLoader().getResourceAsStream(propertiesPath);
         prop.load(fis);
         return prop;
     }

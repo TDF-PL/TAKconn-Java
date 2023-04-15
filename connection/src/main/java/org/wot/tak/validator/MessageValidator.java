@@ -21,7 +21,7 @@ public class MessageValidator {
             throw new IOException("Path to xsd is empty");
         }
         SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        schema = factory.newSchema(new File(xsdPath));
+        schema = factory.newSchema(this.getClass().getClassLoader().getResource(xsdPath));
     }
 
     public void validateXMLSchema(String xmlPath) throws IOException, SAXException{

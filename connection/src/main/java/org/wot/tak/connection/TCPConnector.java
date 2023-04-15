@@ -3,6 +3,7 @@ package org.wot.tak.connection;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.nio.file.Files;
 
 public abstract class TCPConnector implements TAKServerConnector {
     public final String url;
@@ -57,6 +58,7 @@ public abstract class TCPConnector implements TAKServerConnector {
                 try {
                     line = in.readLine();
                     file = new File(responseStoragePath + "/" + System.currentTimeMillis() + ".cot");
+                    Files.createDirectories(file.getParentFile().toPath());
                     pw = new PrintWriter(new FileWriter(file));
                     pw.println(line);
                     pw.close();

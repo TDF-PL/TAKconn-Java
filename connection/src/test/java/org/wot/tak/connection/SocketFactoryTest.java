@@ -22,7 +22,7 @@ public class SocketFactoryTest {
     }
 
     @Test
-    public void testCreateSSLSocket() throws Exception {
+    public void testDevServerMASSL() throws Exception {
         // given
         SocketFactory factory = createFactory();
         // when

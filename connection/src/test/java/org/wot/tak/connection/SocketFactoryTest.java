@@ -26,7 +26,7 @@ public class SocketFactoryTest {
         // given
         SocketFactory factory = createFactory();
         // when
-        Socket socket = factory.createSSLSocket("tak-dev.1gs20.net", 8443);
+        Socket socket = factory.createSSLSocket("tak-dev.1gs20.net", 8089);
         // then
         assertNotNull(socket);
         assertTrue(socket instanceof SSLSocket);

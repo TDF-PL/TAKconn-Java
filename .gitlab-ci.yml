@@ -1,13 +1,18 @@
+image: maven:3.8.4-openjdk-11-slim
+
 stages:
   - build
   - test
 
-build-code-job:
+build:
   stage: build
   script:
-    - mvn package
+    - mvn -DskipTests package
+  artifacts:
+    paths:
+      - "**/target/*.jar"
 
-test-code-job:
+test:
   stage: test
   script:
     - mvn test

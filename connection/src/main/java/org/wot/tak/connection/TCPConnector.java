@@ -1,5 +1,6 @@
 package org.wot.tak.connection;
 
+import javax.sql.rowset.spi.XmlReader;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -11,7 +12,7 @@ public abstract class TCPConnector implements TAKServerConnector {
     private final String responseStoragePath;
     protected SocketFactory socketFactory;
     protected Socket s;
-    protected BufferedReader in;
+    protected InputStream in;
     protected PrintWriter out;
     private ResponseListener listener;
 
@@ -40,7 +41,7 @@ public abstract class TCPConnector implements TAKServerConnector {
 
     private void initializeInOut() throws IOException {
         out = new PrintWriter(s.getOutputStream(), true);
-        in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+        in = s.getInputStream();
     }
 
     private class ResponseListener extends Thread {
@@ -51,16 +52,16 @@ public abstract class TCPConnector implements TAKServerConnector {
             stop = true;
         }
         public void run(){
-            String line;
+            String xml;
             File file;
             PrintWriter pw;
             while (!stop) {
                 try {
-                    line = in.readLine();
+                    xml = EventReader.readFrom(in);
                     file = new File(responseStoragePath + "/" + System.currentTimeMillis() + ".cot");
                     Files.createDirectories(file.getParentFile().toPath());
                     pw = new PrintWriter(new FileWriter(file));
-                    pw.println(line);
+                    pw.println(xml);
                     pw.close();
                 } catch (SocketTimeoutException ex) {
                     continue;

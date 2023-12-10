@@ -1,6 +1,7 @@
 package org.wot.tak.connection.infra;
 
 import jakarta.xml.bind.JAXBException;
+import org.wot.tak.common.Port;
 import org.wot.tak.connection.configuration.MessageReceiver;
 import org.wot.tak.connection.protocol.StreamingProtocolNegotiator;
 import org.wot.tak.connection.protocol.protobuf.Takmessage;
@@ -12,7 +13,7 @@ public abstract class StreamingTcpConnector extends TCPConnectorBase {
 
     private final boolean negotiateProtobufProtocol;
 
-    public StreamingTcpConnector(String url, String port, SocketFactory sFactory, boolean negotiateProtobufProtocol) {
+    public StreamingTcpConnector(String url, Port port, SocketFactory sFactory, boolean negotiateProtobufProtocol) {
         super(url, port, sFactory);
         this.negotiateProtobufProtocol = negotiateProtobufProtocol;
     }

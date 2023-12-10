@@ -4,6 +4,7 @@ import jakarta.xml.bind.JAXBException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.wot.tak.common.Port;
 import org.wot.tak.connection.configuration.MessageReceiver;
 import org.wot.tak.connection.configuration.TAKServerConnector;
 import org.wot.tak.connection.protocol.protobuf.MessageMarshalling;
@@ -22,7 +23,7 @@ import java.net.Socket;
 @Getter(AccessLevel.PUBLIC)
 public abstract class TCPConnectorBase implements TAKServerConnector {
     private final String url;
-    private final int port;
+    private final Port port;
     private final SocketFactory socketFactory;
     private InputStream inputStream;
     private OutputStream outputStream;
@@ -35,9 +36,9 @@ public abstract class TCPConnectorBase implements TAKServerConnector {
     @Setter(AccessLevel.PUBLIC)
     private ProtocolVersion protocolVersion = ProtocolVersion.XML;
 
-    protected TCPConnectorBase(String url, String port, SocketFactory sFactory) {
+    protected TCPConnectorBase(String url, Port port, SocketFactory sFactory) {
         this.url = url;
-        this.port = Integer.parseInt(port);
+        this.port = port;
         this.socketFactory = sFactory;
     }
 

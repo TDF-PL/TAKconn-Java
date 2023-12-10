@@ -1,5 +1,6 @@
 package org.wot.tak.connection.connectors;
 
+import org.wot.tak.common.Port;
 import org.wot.tak.connection.configuration.MessageReceiver;
 import org.wot.tak.connection.infra.SocketFactory;
 
@@ -14,7 +15,7 @@ public final class SSLCredentialsConnector extends SSLConnector {
     private final String username;
     private final String password;
 
-    public SSLCredentialsConnector(String url, String port, SocketFactory sFactory, String username, String password) {
+    public SSLCredentialsConnector(String url, Port port, SocketFactory sFactory, String username, String password) {
         super(url, port, sFactory);
         this.username = username;
         this.password = password;

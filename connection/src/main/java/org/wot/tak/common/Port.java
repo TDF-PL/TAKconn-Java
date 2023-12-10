@@ -1,12 +1,10 @@
 package org.wot.tak.common;
 
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Value;
 
-@Getter(AccessLevel.PACKAGE)
-@EqualsAndHashCode
-public final class Port {
+@SuppressWarnings("RedundantModifiersValueLombok")
+@Value
+public class Port {
 
     private final int number;
 

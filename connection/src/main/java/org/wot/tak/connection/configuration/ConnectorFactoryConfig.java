@@ -3,12 +3,13 @@ package org.wot.tak.connection.configuration;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.wot.tak.common.Port;
 
 @Getter(AccessLevel.PUBLIC)
 @RequiredArgsConstructor
 public final class ConnectorFactoryConfig {
     private final String takServerUrl;
-    private final String takServerPort;
+    private final Port takServerPort;
     private final AuthenticationConfig authenticationConfig;
 
     public String getUserName() {

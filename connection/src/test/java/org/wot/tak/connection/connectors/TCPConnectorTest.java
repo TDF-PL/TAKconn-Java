@@ -10,7 +10,7 @@ import java.net.URL;
 class TCPConnectorTest extends ConnectorTestTemplate {
 
     private final URL serverUrl = new URL("https://127.0.0.1");
-    private final Port port = Port.of(8999);
+    private final Port port = Port.of(18999);
 
     private final SocketFactory socketFactory = new SocketFactory(SocketFactoryConfig.empty());
 
@@ -19,6 +19,6 @@ class TCPConnectorTest extends ConnectorTestTemplate {
 
     @Override
     protected TAKServerConnector createConnector(boolean negotiateProtobufProtocol) {
-        return new TCPConnector(serverUrl.getHost(), port.toString(), socketFactory, negotiateProtobufProtocol);
+        return new TCPConnector(serverUrl.getHost(), port, socketFactory, negotiateProtobufProtocol);
     }
 }

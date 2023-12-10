@@ -21,7 +21,7 @@ class UDPConnectorTest {
 
     private final URL serverUrl = new URL("https://127.0.0.1");
 
-    private final Port port = Port.of(8999);
+    private final Port port = Port.of(18999);
 
     UDPConnectorTest() throws MalformedURLException {
     }

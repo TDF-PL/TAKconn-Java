@@ -1,16 +1,17 @@
 package org.wot.tak.connection.connectors;
 
+import org.wot.tak.common.Port;
 import org.wot.tak.connection.configuration.MessageReceiver;
 import org.wot.tak.connection.infra.SocketFactory;
 import org.wot.tak.connection.infra.StreamingTcpConnector;
 
 public final class TCPConnector extends StreamingTcpConnector {
 
-    public TCPConnector(String url, String port, SocketFactory sFactory) {
+    public TCPConnector(String url, Port port, SocketFactory sFactory) {
         super(url, port, sFactory, true);
     }
 
-    public TCPConnector(String url, String port, SocketFactory sFactory, boolean negotiateProtocolVersion) {
+    public TCPConnector(String url, Port port, SocketFactory sFactory, boolean negotiateProtocolVersion) {
         super(url, port, sFactory, negotiateProtocolVersion);
     }
 

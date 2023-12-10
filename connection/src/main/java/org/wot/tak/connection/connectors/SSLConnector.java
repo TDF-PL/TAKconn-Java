@@ -5,17 +5,18 @@ import javax.net.ssl.SSLPeerUnverifiedException;
 import javax.net.ssl.SSLSocket;
 
 import org.bouncycastle.est.jcajce.JsseDefaultHostnameAuthorizer;
+import org.wot.tak.common.Port;
 import org.wot.tak.connection.configuration.MessageReceiver;
 import org.wot.tak.connection.infra.SocketFactory;
 import org.wot.tak.connection.infra.StreamingTcpConnector;
 
 public class SSLConnector extends StreamingTcpConnector {
 
-    public SSLConnector(String url, String port, SocketFactory sFactory) {
+    public SSLConnector(String url, Port port, SocketFactory sFactory) {
         super(url, port, sFactory, true);
     }
 
-    public SSLConnector(String url, String port, SocketFactory sFactory, boolean negotiateProtobufProtocol) {
+    public SSLConnector(String url, Port port, SocketFactory sFactory, boolean negotiateProtobufProtocol) {
         super(url, port, sFactory, negotiateProtobufProtocol);
     }
 

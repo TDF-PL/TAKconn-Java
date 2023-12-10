@@ -61,7 +61,7 @@ public final class ConnectorFactory {
      * @return Connector for plain connection.
      * @throws Exception If an error occurs.
      */
-    public TAKServerConnector getPlainConnector() throws Exception {
+    public TAKServerConnector getTcpConnector() throws Exception {
         return new TCPConnector(
                 config.getTakServerUrl(),
                 config.getTakServerPort(),

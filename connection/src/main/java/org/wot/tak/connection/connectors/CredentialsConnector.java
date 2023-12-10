@@ -1,5 +1,6 @@
 package org.wot.tak.connection.connectors;
 
+import org.wot.tak.common.Port;
 import org.wot.tak.connection.configuration.MessageReceiver;
 import org.wot.tak.connection.infra.SocketFactory;
 import org.wot.tak.connection.infra.TCPConnectorBase;
@@ -15,7 +16,7 @@ public final class CredentialsConnector extends TCPConnectorBase {
     private final String username;
     private final String password;
 
-    public CredentialsConnector(String url, String port, SocketFactory sFactory, String username, String password) {
+    public CredentialsConnector(String url, Port port, SocketFactory sFactory, String username, String password) {
         super(url, port, sFactory);
         this.username = username;
         this.password = password;

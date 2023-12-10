@@ -26,6 +26,6 @@ class SSLConnectorTest extends ConnectorTestTemplate {
 
     @Override
     protected TAKServerConnector createConnector(boolean negotiateProtobufProtocol) {
-        return new SSLConnector(serverUrl.getHost(), port.toString(), socketFactory, negotiateProtobufProtocol);
+        return new SSLConnector(serverUrl.getHost(), port, socketFactory, negotiateProtobufProtocol);
     }
 }

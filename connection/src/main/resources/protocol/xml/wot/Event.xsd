@@ -1,0 +1,95 @@
+<?xml  version='1.0' encoding='windows-1252' ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="Detail.xsd"/>
+
+    <xs:element name="event">
+        <xs:complexType>
+            <xs:annotation>
+                <xs:documentation>represents a TAK event: this class is instantiated with a standard set of values.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:all>
+                <xs:element name="point" type="point"/>
+                <xs:element name="detail" type="detail"/>
+            </xs:all>
+            <xs:attribute name="how" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Gives a hint about how the coordinates were generated</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="m_detail" type="xs:string"/>
+            <xs:attribute name="m_point" type="xs:string"/>
+            <xs:attribute name="stale" type="xs:dateTime" use="required">
+                <xs:annotation>
+                    <xs:documentation>ending time when an event should no longer be considered valid</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="start" type="xs:dateTime" use="required">
+                <xs:annotation>
+                    <xs:documentation>starting time when an event should be considered valid</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="time" type="xs:dateTime" use="required">
+                <xs:annotation>
+                    <xs:documentation>time stamp: when the event was generated</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="type" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>&lt;font color="#008000"&gt; # Hierarchically organized hint about event type
+                        (default is 'a-f-G-I' for infrastructure)&lt;/font&gt;
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="uid" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Globally unique name for this information on this event.</xs:documentation>
+                    <xs:documentation>can have additional information attached.</xs:documentation>
+                    <xs:documentation>e.g. -ping means that this request is a ping</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="version" type="xs:decimal" use="required">
+                <xs:annotation>
+                    <xs:documentation>Schema version of this event instance (e.g. 2.0)</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="access" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="point">
+        <xs:annotation>
+            <xs:documentation>class COTPOINT</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="ce" type="xs:decimal" use="required">
+            <xs:annotation>
+                <xs:documentation>Circular 1-sigma or decimal a circular area about the point in meters
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="lat" type="xs:decimal" use="required">
+            <xs:annotation>
+                <xs:documentation>Latitude referred to the WGS 84 ellipsoid in degrees</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="le" type="xs:decimal" use="required">
+            <xs:annotation>
+                <xs:documentation>Linear 1-sigma error or an altitude range about the point in meters</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="lon" type="xs:decimal" use="required">
+            <xs:annotation>
+                <xs:documentation>Longitude referred to the WGS 84 in degrees</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="hae" type="xs:decimal" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    HAE acronym for Height above Ellipsoid based on WGS-84 ellipsoid (measured in meters).
+                    If absent, the value of the point/@hae in the CoT event base schema is used
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

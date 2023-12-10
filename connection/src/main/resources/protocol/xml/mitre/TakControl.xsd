@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:complexType name="TakControl">
+        <xs:sequence>
+            <xs:element name="TakProtocolSupport" type="TakProtocolSupport" minOccurs="0"/>
+            <xs:element name="TakServerVersionInfo" type="TakServerVersionInfo" minOccurs="0"/>
+            <xs:element name="TakRequest" type="TakRequest" minOccurs="0"/>
+            <xs:element name="TakResponse" type="TakResponse" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="TakProtocolSupport">
+        <xs:attribute name="version" type="xs:string" default="1" />
+    </xs:complexType>
+
+    <xs:complexType name="TakServerVersionInfo">
+        <xs:attribute name="apiVersion" type="xs:string" />
+        <xs:attribute name="serverVersion" type="xs:string" />
+    </xs:complexType>
+
+    <xs:complexType name="TakRequest">
+        <xs:attribute name="version" type="xs:string" />
+    </xs:complexType>
+
+    <xs:complexType name="TakResponse">
+        <xs:attribute name="status" type="xs:boolean" />
+    </xs:complexType>
+
+</xs:schema>

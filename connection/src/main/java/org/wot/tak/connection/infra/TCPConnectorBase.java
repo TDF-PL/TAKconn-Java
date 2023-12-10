@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.wot.tak.common.Port;
+import org.wot.tak.common.Url;
 import org.wot.tak.connection.configuration.MessageReceiver;
 import org.wot.tak.connection.configuration.TAKServerConnector;
 import org.wot.tak.connection.protocol.protobuf.MessageMarshalling;
@@ -22,7 +23,7 @@ import java.net.Socket;
 
 @Getter(AccessLevel.PUBLIC)
 public abstract class TCPConnectorBase implements TAKServerConnector {
-    private final String url;
+    private final Url url;
     private final Port port;
     private final SocketFactory socketFactory;
     private InputStream inputStream;
@@ -36,7 +37,7 @@ public abstract class TCPConnectorBase implements TAKServerConnector {
     @Setter(AccessLevel.PUBLIC)
     private ProtocolVersion protocolVersion = ProtocolVersion.XML;
 
-    protected TCPConnectorBase(String url, Port port, SocketFactory sFactory) {
+    protected TCPConnectorBase(Url url, Port port, SocketFactory sFactory) {
         this.url = url;
         this.port = port;
         this.socketFactory = sFactory;

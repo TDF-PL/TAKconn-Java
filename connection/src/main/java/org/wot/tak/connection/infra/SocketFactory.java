@@ -2,6 +2,7 @@ package org.wot.tak.connection.infra;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.wot.tak.common.Port;
+import org.wot.tak.common.Url;
 import org.wot.tak.connection.configuration.SocketFactoryConfig;
 
 import javax.net.ssl.KeyManagerFactory;
@@ -22,16 +23,16 @@ public final class SocketFactory {
         this.config = configuration;
     }
 
-    public Socket createSSLSocket(String url, Port port) throws Exception {
+    public Socket createSSLSocket(Url url, Port port) throws Exception {
         var sslFactory = this.config.getServerCertVerification()
                 ? initializeSocketFactory()
                 : initializeTestSocketFactory();
 
-        return sslFactory.createSocket(url, port.getNumber());
+        return sslFactory.createSocket(url.getUrl(), port.getNumber());
     }
 
-    public Socket createSocket(String url, Port port) throws Exception {
-        return new Socket(url, port.getNumber());
+    public Socket createSocket(Url url, Port port) throws Exception {
+        return new Socket(url.getUrl(), port.getNumber());
     }
 
     private SSLSocketFactory initializeTestSocketFactory() throws Exception {

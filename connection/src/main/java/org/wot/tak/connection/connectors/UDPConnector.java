@@ -2,6 +2,8 @@ package org.wot.tak.connection.connectors;
 
 import com.google.protobuf.CodedOutputStream;
 import jakarta.xml.bind.JAXBException;
+import org.wot.tak.common.Port;
+import org.wot.tak.common.Url;
 import org.wot.tak.connection.configuration.MessageReceiver;
 import org.wot.tak.connection.configuration.TAKServerConnector;
 import org.wot.tak.connection.protocol.ProtocolVersion;
@@ -17,8 +19,8 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public final class UDPConnector implements TAKServerConnector {
-    private final String url;
-    private final int port;
+    private final Url url;
+    private final Port port;
     private DatagramSocket socket;
     private InetAddress address;
     private MessageReceiver handler;
@@ -27,9 +29,9 @@ public final class UDPConnector implements TAKServerConnector {
     private static final int RECEIVING_BUFFER_SIZE = 3 * 1024;
     public static final int MAGIC_BYTE = 0xbf;
 
-    public UDPConnector(String url, String port) {
+    public UDPConnector(Url url, Port port) {
         this.url = url;
-        this.port = Integer.parseInt(port);
+        this.port = port;
     }
 
     @Override
@@ -40,7 +42,7 @@ public final class UDPConnector implements TAKServerConnector {
     @Override
     public void connect(MessageReceiver handler) throws Exception {
         this.socket = new DatagramSocket();
-        this.address = InetAddress.getByName(url);
+        this.address = InetAddress.getByName(url.getUrl());
         this.handler = handler;
         this.listener = new ResponseListener();
         this.listener.start();
@@ -49,13 +51,13 @@ public final class UDPConnector implements TAKServerConnector {
     @Override
     public void send(Event event) throws IOException, JAXBException {
         var bytes = EventMarshalling.toBytes(event);
-        socket.send(new DatagramPacket(bytes, bytes.length, address, port));
+        socket.send(new DatagramPacket(bytes, bytes.length, address, port.getNumber()));
     }
 
     @Override
     public void send(Takmessage.TakMessage message) throws IOException {
         var bytes = asBytesWithHeader(message.toByteArray());
-        socket.send(new DatagramPacket(bytes, bytes.length, address, port));
+        socket.send(new DatagramPacket(bytes, bytes.length, address, port.getNumber()));
     }
 
     @Override

@@ -6,17 +6,18 @@ import javax.net.ssl.SSLSocket;
 
 import org.bouncycastle.est.jcajce.JsseDefaultHostnameAuthorizer;
 import org.wot.tak.common.Port;
+import org.wot.tak.common.Url;
 import org.wot.tak.connection.configuration.MessageReceiver;
 import org.wot.tak.connection.infra.SocketFactory;
 import org.wot.tak.connection.infra.StreamingTcpConnector;
 
 public class SSLConnector extends StreamingTcpConnector {
 
-    public SSLConnector(String url, Port port, SocketFactory sFactory) {
+    public SSLConnector(Url url, Port port, SocketFactory sFactory) {
         super(url, port, sFactory, true);
     }
 
-    public SSLConnector(String url, Port port, SocketFactory sFactory, boolean negotiateProtobufProtocol) {
+    public SSLConnector(Url url, Port port, SocketFactory sFactory, boolean negotiateProtobufProtocol) {
         super(url, port, sFactory, negotiateProtobufProtocol);
     }
 
@@ -31,7 +32,7 @@ public class SSLConnector extends StreamingTcpConnector {
             throw new SSLException("Cannot verify SSL socket without session");
         }
         var hostnameVerifier = new JsseDefaultHostnameAuthorizer(null);
-        if (!hostnameVerifier.verified(getUrl(), session)) {
+        if (!hostnameVerifier.verified(getUrl().getUrl(), session)) {
             throw new SSLPeerUnverifiedException("Cannot verify hostname: " + getUrl());
         }
         super.connect(handler);

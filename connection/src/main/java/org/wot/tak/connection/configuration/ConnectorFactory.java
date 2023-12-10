@@ -73,8 +73,8 @@ public final class ConnectorFactory {
      */
     public TAKServerConnector getUDPConnector() {
         return new UDPConnector(
-                config.getUserName(),
-                config.getUserPassword()
+                config.getTakServerUrl(),
+                config.getTakServerPort()
         );
     }
 }

@@ -1,15 +1,14 @@
 package org.wot.tak.connection.connectors;
 
 import org.wot.tak.common.Port;
+import org.wot.tak.common.Url;
 import org.wot.tak.connection.configuration.SocketFactoryConfig;
 import org.wot.tak.connection.configuration.TAKServerConnector;
 import org.wot.tak.connection.infra.SocketFactory;
 
-import java.net.URL;
-
 class TCPConnectorTest extends ConnectorTestTemplate {
 
-    private final URL serverUrl = new URL("https://127.0.0.1");
+    private final Url serverUrl = new Url("127.0.0.1");
     private final Port port = Port.of(18999);
 
     private final SocketFactory socketFactory = new SocketFactory(SocketFactoryConfig.empty());
@@ -19,6 +18,6 @@ class TCPConnectorTest extends ConnectorTestTemplate {
 
     @Override
     protected TAKServerConnector createConnector(boolean negotiateProtobufProtocol) {
-        return new TCPConnector(serverUrl.getHost(), port, socketFactory, negotiateProtobufProtocol);
+        return new TCPConnector(serverUrl, port, socketFactory, negotiateProtobufProtocol);
     }
 }

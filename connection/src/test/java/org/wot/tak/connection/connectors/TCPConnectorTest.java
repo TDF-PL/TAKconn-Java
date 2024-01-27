@@ -9,7 +9,7 @@ import org.wot.tak.connection.infra.SocketFactory;
 class TCPConnectorTest extends ConnectorTestTemplate {
 
     private final Url serverUrl = new Url("127.0.0.1");
-    private final Port port = Port.of(18999);
+    private final Port port = Port.of(8999);
 
     private final SocketFactory socketFactory = new SocketFactory(SocketFactoryConfig.empty());
 

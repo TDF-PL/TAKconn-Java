@@ -13,8 +13,8 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.wot.tak.connection.messages.asserts.protobuf.TakMessageAssert.assertThatMessage;
-import static org.wot.tak.connection.messages.asserts.xml.EventAssertFluent.assertThatEvent;
+import static org.wot.tak.connection.messages.asserts.protobuf.TakMessageAssert.hasChat;
+import static org.wot.tak.connection.messages.asserts.xml.EventAssertFluent.hasChatMessage;
 
 abstract class ConnectorTestTemplate {
 
@@ -62,12 +62,10 @@ abstract class ConnectorTestTemplate {
                     .untilAsserted(
                             () -> {
                                 assertThat(alphaMessageReceiver.getXmlMessages())
-                                        .anyMatch(event ->
-                                                assertThatEvent(event).hasChatMessage(bravoCallsign, bravoChatText));
+                                        .anyMatch(event -> hasChatMessage(event, bravoCallsign, bravoChatText));
 
                                 assertThat(bravoMessageReceiver.getXmlMessages())
-                                        .anyMatch(event ->
-                                                assertThatEvent(event).hasChatMessage(alphaCallsign, alphaChatText));
+                                        .anyMatch(event -> hasChatMessage(event, alphaCallsign, alphaChatText));
                             });
 
 
@@ -125,12 +123,10 @@ abstract class ConnectorTestTemplate {
                     .untilAsserted(
                             () -> {
                                 assertThat(alphaMessageReceiver.getProtobufMessages())
-                                        .anyMatch(message -> assertThatMessage(message)
-                                                .hasChatMessage(bravoCallsign, bravoChatText));
+                                        .anyMatch(message -> hasChat(message, bravoCallsign, bravoChatText));
 
                                 assertThat(bravoMessageReceiver.getProtobufMessages())
-                                        .anyMatch(message -> assertThatMessage(message)
-                                                .hasChatMessage(alphaCallsign, alphaChatText));
+                                        .anyMatch(message -> hasChat(message, alphaCallsign, alphaChatText));
                             });
         }
     }

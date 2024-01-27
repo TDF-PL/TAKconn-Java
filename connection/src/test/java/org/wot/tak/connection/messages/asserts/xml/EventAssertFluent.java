@@ -1,6 +1,5 @@
 package org.wot.tak.connection.messages.asserts.xml;
 
-import lombok.SneakyThrows;
 import org.wot.tak.connection.protocol.xml.Detail;
 import org.wot.tak.connection.protocol.xml.Event;
 
@@ -99,8 +98,12 @@ public final class EventAssertFluent {
         return this;
     }
 
-    @SneakyThrows
-    public boolean hasChatMessage(String senderCallsign, String chatMessage) {
+    public EventAssertFluent hasChatMessage(String senderCallsign, String chatMessage) {
+        assertThat(hasChatMessage(event, senderCallsign, chatMessage)).isTrue();
+        return this;
+    }
+
+    public static boolean hasChatMessage(Event event, String senderCallsign, String chatMessage) {
         var detail = Optional.ofNullable(event.getDetail());
 
         var senderCallSignMatched = detail

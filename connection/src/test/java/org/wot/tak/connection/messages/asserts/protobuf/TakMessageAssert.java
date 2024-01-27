@@ -6,6 +6,8 @@ import org.wot.tak.connection.protocol.protobuf.Takmessage;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 public class TakMessageAssert {
 
     private final Takmessage.TakMessage message;
@@ -18,8 +20,13 @@ public class TakMessageAssert {
         return new TakMessageAssert(message);
     }
 
+    public TakMessageAssert hasChat(String senderCallsign, String chatMessage) {
+        assertThat(hasChat(message, senderCallsign, chatMessage)).isTrue();
+        return this;
+    }
+
     @SneakyThrows
-    public boolean hasChatMessage(String senderCallsign, String chatMessage) {
+    public static boolean hasChat(Takmessage.TakMessage message, String senderCallsign, String chatMessage) {
         var hasDetail = message.hasCotEvent() && message.getCotEvent().hasDetail();
         if (!hasDetail) {
             return false;

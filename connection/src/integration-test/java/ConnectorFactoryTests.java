@@ -1,6 +1,4 @@
 import org.junit.jupiter.api.Test;
-import org.wot.tak.common.Port;
-import org.wot.tak.common.Url;
 import org.wot.tak.connection.UID;
 import org.wot.tak.connection.configuration.AuthenticationConfig;
 import org.wot.tak.connection.configuration.ConnectorFactory;
@@ -12,6 +10,13 @@ import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
+import static org.wot.tak.common.Password.noPassword;
+import static org.wot.tak.common.Password.password;
+import static org.wot.tak.common.Path.path;
+import static org.wot.tak.common.Path.noPath;
+import static org.wot.tak.common.Port.port;
+import static org.wot.tak.common.Url.url;
+import static org.wot.tak.common.UserName.noUserName;
 import static org.wot.tak.connection.messages.ClientProtobufMessage.announcement;
 
 class ConnectorFactoryTests {
@@ -20,15 +25,15 @@ class ConnectorFactoryTests {
     void Can_create_SSL_connector_using_connector_factory() throws Exception {
 
         var config = new ConnectorFactoryConfig(
-                Url.of("tak-dev.1gs20.net"),
-                Port.of(8089),
+                url("tak-dev.1gs20.net"),
+                port(8089),
                 new AuthenticationConfig(
-                        "",
-                        "",
-                        "cert-test/truststore-int-ca.p12",
-                        "atakatak",
-                        "cert-test/charlie.p12",
-                        "atakatak",
+                        noUserName(),
+                        noPassword(),
+                        path("cert-test/truststore-int-ca.p12"),
+                        password("atakatak"),
+                        path("cert-test/charlie.p12"),
+                        password("atakatak"),
                         true));
 
         var connectorFactory = new ConnectorFactory(config);
@@ -62,15 +67,15 @@ class ConnectorFactoryTests {
     void Can_create_TCP_connector_using_connector_factory() throws Exception {
 
         var config = new ConnectorFactoryConfig(
-                Url.of("127.0.0.1"),
-                Port.of(8999),
+                url("127.0.0.1"),
+                port(8999),
                 new AuthenticationConfig(
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
+                        noUserName(),
+                        noPassword(),
+                        noPath(),
+                        noPassword(),
+                        noPath(),
+                        noPassword(),
                         true));
 
         var connectorFactory = new ConnectorFactory(config);
@@ -104,15 +109,15 @@ class ConnectorFactoryTests {
     void Can_create_UDP_connector_using_connector_factory() throws Exception {
 
         var config = new ConnectorFactoryConfig(
-                Url.of("127.0.0.1"),
-                Port.of(8999),
+                url("127.0.0.1"),
+                port(8999),
                 new AuthenticationConfig(
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
+                        noUserName(),
+                        noPassword(),
+                        noPath(),
+                        noPassword(),
+                        noPath(),
+                        noPassword(),
                         true));
 
         var connectorFactory = new ConnectorFactory(config);

@@ -1,11 +1,10 @@
 package org.wot.tak.common;
 
-import lombok.Value;
+public record Url(String url) {
 
-@SuppressWarnings("RedundantModifiersValueLombok")
-@Value
-public class Url {
-    private final String url;
+    public static Url url(String url) {
+        return new Url(url);
+    }
 
     public static Url of(String url) {
         return new Url(url);

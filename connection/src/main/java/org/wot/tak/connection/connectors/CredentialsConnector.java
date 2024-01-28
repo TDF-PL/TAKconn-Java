@@ -1,7 +1,9 @@
 package org.wot.tak.connection.connectors;
 
+import org.wot.tak.common.Password;
 import org.wot.tak.common.Port;
 import org.wot.tak.common.Url;
+import org.wot.tak.common.UserName;
 import org.wot.tak.connection.configuration.MessageReceiver;
 import org.wot.tak.connection.infra.SocketFactory;
 import org.wot.tak.connection.infra.TCPConnectorBase;
@@ -14,10 +16,10 @@ import java.io.StringWriter;
 
 public final class CredentialsConnector extends TCPConnectorBase {
 
-    private final String username;
-    private final String password;
+    private final UserName username;
+    private final Password password;
 
-    public CredentialsConnector(Url url, Port port, SocketFactory sFactory, String username, String password) {
+    public CredentialsConnector(Url url, Port port, SocketFactory sFactory, UserName username, Password password) {
         super(url, port, sFactory);
         this.username = username;
         this.password = password;
@@ -37,8 +39,8 @@ public final class CredentialsConnector extends TCPConnectorBase {
         var auth = doc.createElement("auth");
         doc.appendChild(auth);
         var cot = doc.createElement("cot");
-        cot.setAttribute("username", username);
-        cot.setAttribute("password", password);
+        cot.setAttribute("username", username.userName());
+        cot.setAttribute("password", password.password());
         //cot.setAttribute("uid", uid);
         auth.appendChild(cot);
         var transformerFactory = TransformerFactory.newInstance();

@@ -32,7 +32,7 @@ public class SSLConnector extends StreamingTcpConnector {
             throw new SSLException("Cannot verify SSL socket without session");
         }
         var hostnameVerifier = new JsseDefaultHostnameAuthorizer(null);
-        if (!hostnameVerifier.verified(getUrl().getUrl(), session)) {
+        if (!hostnameVerifier.verified(getUrl().url(), session)) {
             throw new SSLPeerUnverifiedException("Cannot verify hostname: " + getUrl());
         }
         super.connect(handler);

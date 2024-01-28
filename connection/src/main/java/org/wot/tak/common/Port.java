@@ -1,29 +1,17 @@
 package org.wot.tak.common;
 
-import lombok.Value;
+public record Port(int number) {
 
-@SuppressWarnings("RedundantModifiersValueLombok")
-@Value
-public class Port {
-
-    private final int number;
-
-    /**
-     * Creates TCP/UDP Port number.
-     * @param number port number
-     */
-    public Port(int number) {
+    public Port {
         if (number < 0 || number > 65535) {
             throw new IllegalArgumentException("Port number must be between 0 and 65535");
         }
-        this.number = number;
     }
 
-    /**
-     * Creates TCP/UDP Port number.
-     * @param number port number
-     * @return Port object
-     */
+    public static Port port(int number) {
+        return new Port(number);
+    }
+
     public static Port of(int number) {
         return new Port(number);
     }

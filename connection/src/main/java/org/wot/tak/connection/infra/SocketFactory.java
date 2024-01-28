@@ -28,11 +28,11 @@ public final class SocketFactory {
                 ? initializeSocketFactory()
                 : initializeTestSocketFactory();
 
-        return sslFactory.createSocket(url.getUrl(), port.getNumber());
+        return sslFactory.createSocket(url.url(), port.number());
     }
 
     public Socket createSocket(Url url, Port port) throws Exception {
-        return new Socket(url.getUrl(), port.getNumber());
+        return new Socket(url.url(), port.number());
     }
 
     private SSLSocketFactory initializeTestSocketFactory() throws Exception {
@@ -55,10 +55,10 @@ public final class SocketFactory {
     }
 
     private SSLSocketFactory initializeSocketFactory(TrustManager[] trustManagers) throws Exception {
-        var storepass = config.getKeyStorePassword().toCharArray();
+        var storepass = config.getKeyStorePassword().asCharArray();
 
         var keyManagerFactory = KeyManagerFactory.getInstance("SunX509");
-        var inputStream = this.getClass().getClassLoader().getResourceAsStream(config.getKeyStorePath());
+        var inputStream = this.getClass().getClassLoader().getResourceAsStream(config.getKeyStorePath().toString());
         Objects.requireNonNull(inputStream);
         var keyStore = KeyStore.getInstance("PKCS12");
         keyStore.load(inputStream, storepass);
@@ -67,9 +67,9 @@ public final class SocketFactory {
         if (trustManagers == null) {
             TrustManagerFactory trustManagerFactory;
             KeyStore keyStore2;
-            var trustStorePassword = config.getTrustStorePassword().toCharArray();
+            var trustStorePassword = config.getTrustStorePassword().asCharArray();
             trustManagerFactory = TrustManagerFactory.getInstance("SunX509");
-            inputStream = this.getClass().getClassLoader().getResourceAsStream(config.getTrustStorePath());
+            inputStream = this.getClass().getClassLoader().getResourceAsStream(config.getTrustStorePath().toString());
             Objects.requireNonNull(inputStream);
             if (Security.getProvider("BC") == null) {
                 Security.addProvider(new BouncyCastleProvider());

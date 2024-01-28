@@ -42,7 +42,7 @@ public final class UDPConnector implements TAKServerConnector {
     @Override
     public void connect(MessageReceiver handler) throws Exception {
         this.socket = new DatagramSocket();
-        this.address = InetAddress.getByName(url.getUrl());
+        this.address = InetAddress.getByName(url.url());
         this.handler = handler;
         this.listener = new ResponseListener();
         this.listener.start();
@@ -51,13 +51,13 @@ public final class UDPConnector implements TAKServerConnector {
     @Override
     public void send(Event event) throws IOException, JAXBException {
         var bytes = EventMarshalling.toBytes(event);
-        socket.send(new DatagramPacket(bytes, bytes.length, address, port.getNumber()));
+        socket.send(new DatagramPacket(bytes, bytes.length, address, port.number()));
     }
 
     @Override
     public void send(Takmessage.TakMessage message) throws IOException {
         var bytes = asBytesWithHeader(message.toByteArray());
-        socket.send(new DatagramPacket(bytes, bytes.length, address, port.getNumber()));
+        socket.send(new DatagramPacket(bytes, bytes.length, address, port.number()));
     }
 
     @Override

@@ -57,4 +57,88 @@ class ConnectorFactoryTests {
             await().atMost(5, TimeUnit.SECONDS).untilAsserted(receiver.received(message));
         }
     }
+
+    @Test
+    void Can_create_TCP_connector_using_connector_factory() throws Exception {
+
+        var config = new ConnectorFactoryConfig(
+                Url.of("127.0.0.1"),
+                Port.of(8999),
+                new AuthenticationConfig(
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        true));
+
+        var connectorFactory = new ConnectorFactory(config);
+
+        try (var senderConnector = connectorFactory.getTcpConnector();
+             var receiverConnector = connectorFactory.getTcpConnector()) {
+
+            senderConnector.connect(new Receiver());
+
+            var receiver = new Receiver();
+            receiverConnector.connect(receiver);
+
+            await().atMost(5, TimeUnit.SECONDS)
+                    .untilAsserted(
+                            () -> {
+                                assertThat(senderConnector.getProtocolVersion())
+                                        .isEqualTo(ProtocolVersion.PROTOBUF);
+
+                                assertThat(receiverConnector.getProtocolVersion())
+                                        .isEqualTo(ProtocolVersion.PROTOBUF);
+                            });
+
+            var message = announcement(UID.random(), "sender");
+            senderConnector.send(message);
+
+            await().atMost(5, TimeUnit.SECONDS).untilAsserted(receiver.received(message));
+        }
+    }
+
+    @Test
+    void Can_create_UDP_connector_using_connector_factory() throws Exception {
+
+        var config = new ConnectorFactoryConfig(
+                Url.of("127.0.0.1"),
+                Port.of(8999),
+                new AuthenticationConfig(
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        true));
+
+        var connectorFactory = new ConnectorFactory(config);
+
+        try (var senderConnector = connectorFactory.getUDPConnector();
+             var receiverConnector = connectorFactory.getTcpConnector()) {
+
+            senderConnector.connect(new Receiver());
+
+            var receiver = new Receiver();
+            receiverConnector.connect(receiver);
+
+            await().atMost(5, TimeUnit.SECONDS)
+                    .untilAsserted(
+                            () -> {
+                                assertThat(senderConnector.getProtocolVersion())
+                                        .isEqualTo(ProtocolVersion.PROTOBUF);
+
+                                assertThat(receiverConnector.getProtocolVersion())
+                                        .isEqualTo(ProtocolVersion.PROTOBUF);
+                            });
+
+            var message = announcement(UID.random(), "sender");
+            senderConnector.send(message);
+
+            await().atMost(5, TimeUnit.SECONDS).untilAsserted(receiver.received(message));
+        }
+    }
 }

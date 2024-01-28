@@ -2,7 +2,7 @@
         "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
         "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 <suppressions>
-    <suppress files="[\\/]src[\\/]test[\\/]" checks="MethodName"/>
+    <suppress files="[\\/]src[\\/](test|integration-test)[\\/]" checks="MethodName"/>
     <suppress files="[\\/]src[\\/]" checks="MissingJavadocMethod"/>
     <suppress files="[\\/]src[\\/]" checks="JavadocVariable"/>
     <suppress files="[\\/]src[\\/]" checks="DesignForExtension"/>
